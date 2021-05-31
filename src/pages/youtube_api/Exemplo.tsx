@@ -19,11 +19,7 @@ export default function Exemplo() {
       .then(data => setYoutubeData(data.items))
       .catch(err => console.log(err))
   }, [activeChannel])
-
-  function handleSubmit() {
-    setActiveChannel(channelId)
-  }
-
+  
   return (
     <>
       <Header
@@ -74,6 +70,7 @@ export default function Exemplo() {
           direction="column"
           maxWidth={["600", "800px", "800px"]}
         >
+          { !youtubeData && <h1>Coloque um ID Valido!</h1> }
           {youtubeData?.map((item) => {
             return (
               <ListItem
