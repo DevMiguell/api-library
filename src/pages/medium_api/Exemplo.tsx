@@ -8,8 +8,11 @@ import React from 'react';
 
 
 export default function Exemplo({ data }) {
+
+
   return (
     <>
+    {console.log(data)}
       <Header
         title="API Medium"
         subtitle="Aprenda como Buscar dado em um blog do Medium"
