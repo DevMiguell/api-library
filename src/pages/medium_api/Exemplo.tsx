@@ -1,18 +1,27 @@
-import { Header } from '../../components/Header';
+import { GetStaticProps } from 'next';
 import { Box, Flex, Link, List, ListItem, Text } from '@chakra-ui/react';
+import Feed from 'rss-to-json'
+
+import { Header } from '../../components/Header';
 
 import styles from '../../styles/Home.module.scss'
 
-import Feed from 'rss-to-json'
-import React from 'react';
+type Items = {
+  created: string
+  title: string
+  category: string
+  content: string
+  link: string
+}
+
+interface MediumDataProps {
+  data: Items[]
+}
 
 
-export default function Exemplo({ data }) {
-
-
+export default function Exemplo({ data }: MediumDataProps) {
   return (
     <>
-    {console.log(data)}
       <Header
         title="API Medium"
         subtitle="Aprenda como Buscar dado em um blog do Medium"
@@ -24,7 +33,7 @@ export default function Exemplo({ data }) {
       <Flex width="100%" my="6" maxWidth={1480} mx="auto" px="6" justify="center">
 
         <List className={styles.grid}>
-          {data.items.map((item) => {
+          {data.map((item) => {
             return (
               <ListItem key={item.created}
                 m="1rem"
@@ -51,15 +60,15 @@ export default function Exemplo({ data }) {
   )
 }
 
-export async function getStaticProps() {
+export const getStaticProps: GetStaticProps = async () => {
   let rss = await Feed.load('https://medium.com/feed/@uxplanet');
   let res = JSON.stringify(rss, null, 3)
   const data = JSON.parse(res)
 
   return {
     props: {
-      data
+      data: data.items
     },
-    revalidate: 60 * 60 * 8,
+    revalidate: 60 * 60 * 24, // 24 horas
   }
 }

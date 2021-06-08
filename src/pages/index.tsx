@@ -27,6 +27,11 @@ export default function Home() {
             subtitle="Aprenda como Buscar dado em um blog do Medium"
             href="/medium_api"
           />
+          <ListItemIndex
+            title="Github API"
+            subtitle="Aprenda como Buscar dados na api do github"
+            href="/github_api"
+          />
         </List>
       </Flex>
     </>

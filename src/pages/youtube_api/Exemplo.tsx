@@ -14,12 +14,17 @@ export default function Exemplo() {
   // baseURL= UCSfwM5u0Kce6Cce8_S72olg
 
   useEffect(() => {
-    fetch(`${YOUTUBE_PLAYLIS_ITEMS_API}?key=AIzaSyBgoX-iA5JzMA_ITvKeyyW5-Eiy8k9A_d0&part=snippet&channelId=${activeChannel}&order=date&maxResults=10`)
+    fetch(`${YOUTUBE_PLAYLIS_ITEMS_API}?key=AIzaSyBgoX-iA5JzMA_ITvKeyyW5-Eiy8k9A_d0&part=snippet&channelId=UCFIHeoKduKPsE2m1oSiK9Mg&order=date&maxResults=50`)
       .then(response => response.json())
-      .then(data => setYoutubeData(data.items))
+      .then(data => {
+        // data.items.pop() // removendo o ultimo item 
+        setYoutubeData(data.items);
+        console.log(data.items[0].snippet.description);
+      }
+      )
       .catch(err => console.log(err))
   }, [activeChannel])
-  
+
   return (
     <>
       <Header
@@ -34,7 +39,7 @@ export default function Exemplo() {
         width="100%"
         my="6"
         maxWidth={1480}
-        mx="auto" 
+        mx="auto"
         px="6"
         align="center"
         direction="column"
@@ -70,7 +75,7 @@ export default function Exemplo() {
           direction="column"
           maxWidth={["600", "800px", "800px"]}
         >
-          { !youtubeData && <h1>Coloque um ID Valido!</h1> }
+          {!youtubeData && <h1>Coloque um ID Valido!</h1>}
           {youtubeData?.map((item) => {
             return (
               <ListItem
