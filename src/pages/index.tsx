@@ -32,6 +32,11 @@ export default function Home() {
             subtitle="Aprenda como Buscar dados na api do github"
             href="/github_api"
           />
+          <ListItemIndex
+            title="Dev.to API"
+            subtitle="Aprenda como Buscar dados em um blog do Dev.to"
+            href="/dev-to_api"
+          />
         </List>
       </Flex>
     </>

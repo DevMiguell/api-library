@@ -5,19 +5,7 @@ import Feed from 'rss-to-json'
 import { Header } from '../../components/Header';
 
 import styles from '../../styles/Home.module.scss'
-
-type Items = {
-  created: string
-  title: string
-  category: string
-  content: string
-  link: string
-}
-
-interface MediumDataProps {
-  data: Items[]
-}
-
+import { MediumDataProps } from '../../services/medium/types/MediumProps';
 
 export default function Exemplo({ data }: MediumDataProps) {
   return (
@@ -61,7 +49,7 @@ export default function Exemplo({ data }: MediumDataProps) {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  let rss = await Feed.load('https://medium.com/feed/@uxplanet');
+  let rss = await Feed.load('https://medium.com/feed/@towardsdatascience');
   let res = JSON.stringify(rss, null, 3)
   const data = JSON.parse(res)
 

@@ -1,19 +1,9 @@
 import { Flex, Link, List, ListItem, Text } from "@chakra-ui/layout"
 import { GetStaticProps } from "next"
 import { Header } from "../../components/Header"
+import { getGithubData } from "../../services/github"
+import { GithubDataProps } from "../../services/github/types/GithubProps"
 
-type Repository = {
-  id: string
-  name: string
-  description: string
-  html_url: string
-  topics: string
-  homepage: string
-}
-
-interface GithubDataProps {
-  data: Repository[]
-}
 
 export default function RepositoryList({ data }: GithubDataProps) {
   return (
@@ -55,18 +45,11 @@ export default function RepositoryList({ data }: GithubDataProps) {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const response = await fetch('https://api.github.com/users/devmiguell/repos', {
-    method: "GET",
-    headers: {
-      Accept: "application/vnd.github.mercy-preview+json"
-    }
-  })
-
-  const data = await response.json()
+  const dataRepos = await getGithubData()
 
   return {
     props: {
-      data: data
+      data: dataRepos
     },
     revalidate: 60 * 60 * 24, // 24 horas
   }
